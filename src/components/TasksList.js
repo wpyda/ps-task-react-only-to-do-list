@@ -23,23 +23,20 @@ class TasksList extends React.Component {
         doneStatus: false,
     };
 
-    tableData = [
-        {
-            name: 'John Smith',
-            priority: 'High',
-        },
-        {
-            name: 'Randal White',
-            priority: 'Medium',
-        },
-        {
-            name: 'Stephanie Sanders',
-            priority: 'Low',
-        },
-    ];
+    tableData = [];
+
+    componentWillMount() {
+        const data = JSON.parse(localStorage.getItem('tasks'));
+
+        if (data !== null) {
+            data.forEach((element) => {
+                this.tableData.push(element)
+            });
+        }
+    };
 
     addTask = () => {
-        if(!this.state.newTaskName) {
+        if (!this.state.newTaskName) {
             alert('Empty textfield!');
             return
         }
@@ -49,13 +46,15 @@ class TasksList extends React.Component {
             priority: this.state.newTaskPriority,
             status: this.state.doneStatus,
         });
-        console.log(this.tableData)
+        console.log(this.tableData);
+
+        localStorage.setItem('tasks', JSON.stringify(this.tableData));
 
         this.setState({
             newTaskName: '',
             newTaskPriority: '',
         })
-    }
+    };
 
     handlePriorityChange = (event, index, value) => this.setState({newTaskPriority: value});
 
@@ -76,9 +75,9 @@ class TasksList extends React.Component {
                     onChange={this.handlePriorityChange}
                     fullWidth={true}
                 >
-                    <MenuItem value={"Low"} primaryText="Low" />
-                    <MenuItem value={"Medium"} primaryText="Medium" />
-                    <MenuItem value={"High"} primaryText="High" />
+                    <MenuItem value={"Low"} primaryText="Low"/>
+                    <MenuItem value={"Medium"} primaryText="Medium"/>
+                    <MenuItem value={"High"} primaryText="High"/>
                 </SelectField>
 
                 <RaisedButton
@@ -109,13 +108,14 @@ class TasksList extends React.Component {
                                 <TableRowColumn>{element.name}</TableRowColumn>
                                 <TableRowColumn>{element.priority}</TableRowColumn>
                                 <TableRowColumn>
-                                    <Checkbox />
+                                    <Checkbox/>
                                 </TableRowColumn>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
-            </div>)
+            </div>
+        )
     }
 }
 
