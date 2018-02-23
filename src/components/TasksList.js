@@ -11,6 +11,8 @@ import {
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import SingleTask from "./SingleTask"
 
 class TasksList extends React.Component {
@@ -18,6 +20,7 @@ class TasksList extends React.Component {
         tasks: null,
         newTaskName: '',
         newTaskPriority: '',
+        doneStatus: false,
     };
 
     tableData = [
@@ -35,20 +38,54 @@ class TasksList extends React.Component {
         },
     ];
 
+    addTask = () => {
+        if(!this.state.newTaskName) {
+            alert('Empty textfield!');
+            return
+        }
+
+        this.tableData.push({
+            name: this.state.newTaskName,
+            priority: this.state.newTaskPriority,
+            status: this.state.doneStatus,
+        });
+        console.log(this.tableData)
+
+        this.setState({
+            newTaskName: '',
+            newTaskPriority: '',
+        })
+    }
+
+    handlePriorityChange = (event, index, value) => this.setState({newTaskPriority: value});
+
     render() {
         return (
             <div>
                 <TextField
                     hintText='New Task'
                     fullWidth={true}
-                    onChange={(e, value)=> this.setState({newTaskName: value})}
+                    onChange={(e, value) => this.setState({newTaskName: value})}
                     value={this.state.newTaskName}
+                    // style={{display: 'inline-block'}}
                 />
-                <RaisedButton
-                    label='Dodaj'
-                    secondary={true}
+
+                <SelectField
+                    floatingLabelText="Priority"
+                    value={this.state.newTaskPriority}
+                    onChange={this.handlePriorityChange}
                     fullWidth={true}
-                    // onClick={}
+                >
+                    <MenuItem value={"Low"} primaryText="Low" />
+                    <MenuItem value={"Medium"} primaryText="Medium" />
+                    <MenuItem value={"High"} primaryText="High" />
+                </SelectField>
+
+                <RaisedButton
+                    label='Add'
+                    primary={true}
+                    fullWidth={true}
+                    onClick={this.addTask}
                 />
 
                 <Table>
@@ -67,12 +104,12 @@ class TasksList extends React.Component {
                         deselectOnClickaway={false}
                         showRowHover={true}
                     >
-                        {this.tableData.map((row, index) => (
+                        {this.tableData.map((element, index) => (
                             <TableRow key={index}>
-                                <TableRowColumn>{row.name}</TableRowColumn>
-                                <TableRowColumn>{row.priority}</TableRowColumn>
+                                <TableRowColumn>{element.name}</TableRowColumn>
+                                <TableRowColumn>{element.priority}</TableRowColumn>
                                 <TableRowColumn>
-                                    <Checkbox/>
+                                    <Checkbox />
                                 </TableRowColumn>
                             </TableRow>
                         ))}

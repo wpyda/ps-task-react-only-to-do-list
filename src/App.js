@@ -7,7 +7,6 @@ import Paper from 'material-ui/Paper';
 const style = {
     margin: 20,
     padding: 20,
-    textAlign: 'center'
 }
 
 class App extends Component {
