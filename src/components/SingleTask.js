@@ -1,15 +1,20 @@
 import React from 'react'
 
-import {ListItem} from 'material-ui/List';
+import {TableRow, TableRowColumn} from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import ActionDelete from 'material-ui/svg-icons/action/delete'
 
 const SingleTask = (props) => (
 
-    <ListItem
-        primaryText={'dasda'}
-        rightIcon={<ActionDelete onClick={() => (null)}/>}
-    />
+    props.tableData.map((element, index) => (
+        <TableRow key={index}>
+            <TableRowColumn>{element.name}</TableRowColumn>
+            <TableRowColumn>{element.priority}</TableRowColumn>
+            <TableRowColumn>
+                <Checkbox/>
+            </TableRowColumn>
+        </TableRow>
+    ))
 )
 
 export default SingleTask
