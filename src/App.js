@@ -16,17 +16,16 @@ class App extends Component {
         newTaskName: '',
         newTaskPriority: '',
         doneStatus: false,
-        id: Date.now()
+        id: Date.now(),
+        tableData: [],
     };
-
-    tableData = [];
 
     getData() {
         const data = JSON.parse(localStorage.getItem('tasks'));
 
         if (data !== null) {
             data.forEach((element) => {
-                this.tableData.push(element)
+                this.state.tableData.push(element)
             });
         }
     }
@@ -44,14 +43,14 @@ class App extends Component {
             return
         }
 
-        this.tableData.push({
+        this.state.tableData.push({
             name: this.state.newTaskName,
             priority: this.state.newTaskPriority,
             status: this.state.doneStatus,
             id: this.state.id,
         });
 
-        localStorage.setItem('tasks', JSON.stringify(this.tableData));
+        localStorage.setItem('tasks', JSON.stringify(this.state.tableData));
 
         this.setState({
             newTaskName: '',
@@ -82,14 +81,14 @@ class App extends Component {
             <MuiThemeProvider>
                 <Paper zDepth={1} rounded={false} style={style}>
                     <AddTask
-                        tableData={this.tableData}
+                        tableData={this.state.tableData}
                         state={this.state}
                         addTask={this.addTask}
                         handlePriorityChange={this.handlePriorityChange}
                         handleTextFieldChange={this.handleTextFieldChange}
                     />
                     <TasksList
-                        tableData={this.tableData}
+                        tableData={this.state.tableData}
                         deleteTask={this.deleteTask}
                     />
                 </Paper>
