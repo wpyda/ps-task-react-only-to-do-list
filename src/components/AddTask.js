@@ -34,6 +34,6 @@ const AddTask = (props) => (
         />
     </div>
 
-)
+);
 
 export default AddTask

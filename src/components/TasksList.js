@@ -1,7 +1,13 @@
 import React from 'react'
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
-import SingleTask from "./SingleTask"
+import SingleTask from "./SingleTask";
+
+const header = [
+    {name: "Task Name"},
+    {name: "Priority"},
+    {name: "Done"},
+];
 
 class TasksList extends React.Component {
     render() {
@@ -13,10 +19,10 @@ class TasksList extends React.Component {
                         adjustForCheckbox={false}
                     >
                         <TableRow>
-                            <TableHeaderColumn>Task Name</TableHeaderColumn>
-                            <TableHeaderColumn>Priority</TableHeaderColumn>
-                            <TableHeaderColumn>Done</TableHeaderColumn>
-                            <TableHeaderColumn></TableHeaderColumn>
+                            {header.map((el, i) => (
+                                <TableHeaderColumn key={i}>{el.name}</TableHeaderColumn>
+                            ))}
+                            <TableHeaderColumn/>
                         </TableRow>
                     </TableHeader>
                     <TableBody
