@@ -24,11 +24,20 @@ class TasksList extends React.Component {
                         deselectOnClickaway={false}
                         showRowHover={true}
                     >
-                        <SingleTask
-                            tableData={this.props.tableData}
-                            deleteTask={this.props.deleteTask}
-                        />
-
+                        {
+                            this.props.tableData
+                            &&
+                            this.props.tableData.map((element, index) => (
+                                <SingleTask
+                                    key={element.id}
+                                    name={element.name}
+                                    priority={element.priority}
+                                    status={element.status}
+                                    deleteTask={() => this.props.deleteTask(element.id)}
+                                    toggleTaskDone={() => this.props.toggleTaskDone(element.id)}
+                                />
+                            ))
+                        }
                     </TableBody>
                 </Table>
             </div>

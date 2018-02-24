@@ -5,24 +5,24 @@ import Checkbox from 'material-ui/Checkbox';
 import DeleteTask from "./DeleteTask";
 
 const SingleTask = (props) => (
+    <TableRow key={props.key}>
+        <TableRowColumn>{props.name}</TableRowColumn>
+        <TableRowColumn>{props.priority}</TableRowColumn>
 
-    props.tableData.map((element, index) => (
-        <TableRow key={index}>
-            <TableRowColumn>{element.name}</TableRowColumn>
-            <TableRowColumn>{element.priority}</TableRowColumn>
+        <TableRowColumn>
+            <Checkbox
+                onClick={() => props.toggleTaskDone(props.key)}
+                checked={props.status}
+            />
+        </TableRowColumn>
 
-            <TableRowColumn>
-                <Checkbox/>
-            </TableRowColumn>
-
-            <TableRowColumn>
-                <DeleteTask
-                    deleteTask={props.deleteTask}
-                    taskId={element.id}
-                />
-            </TableRowColumn>
-        </TableRow>
-    ))
+        <TableRowColumn>
+            <DeleteTask
+                deleteTask={() => props.deleteTask(props.key)}
+                taskId={props.key}
+            />
+        </TableRowColumn>
+    </TableRow>
 );
 
 export default SingleTask

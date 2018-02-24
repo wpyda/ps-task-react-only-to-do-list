@@ -16,21 +16,20 @@ class App extends Component {
         newTaskName: '',
         newTaskPriority: '',
         doneStatus: false,
-        id: Date.now(),
+        id: '',
         tableData: [],
     };
 
     getData() {
         const data = JSON.parse(localStorage.getItem('tasks'));
-
         if (data !== null) {
-            data.forEach((element) => {
-                this.state.tableData.push(element)
-            });
+            this.setState({tableData: data})
         }
     }
 
-    componentWillMount() { this.getData() };
+    componentWillMount() {
+        this.getData()
+    };
 
     addTask = () => {
         if (!this.state.newTaskName) {
@@ -43,18 +42,23 @@ class App extends Component {
             return
         }
 
-        this.state.tableData.push({
+        let tempData = [];
+        tempData = tempData.concat(this.state.tableData);
+
+        tempData.push({
             name: this.state.newTaskName,
             priority: this.state.newTaskPriority,
             status: this.state.doneStatus,
-            id: this.state.id,
+            id: Date.now(),
         });
 
-        localStorage.setItem('tasks', JSON.stringify(this.state.tableData));
+        localStorage.setItem('tasks', JSON.stringify(tempData));
 
         this.setState({
             newTaskName: '',
             newTaskPriority: '',
+            id: '',
+            tableData: tempData,
         });
     };
 
@@ -63,17 +67,33 @@ class App extends Component {
     handlePriorityChange = (event, index, value) => this.setState({newTaskPriority: value});
 
     deleteTask = (taskId) => {
-        const data = JSON.parse(localStorage.getItem('tasks'));
+        let tempData = [];
+        tempData = tempData.concat(this.state.tableData);
 
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].id === taskId) {
-                data.splice(i, 1);
+        for (let i = 0; i < tempData.length; i++) {
+            if (tempData[i].id === taskId) {
+                tempData.splice(i, 1);
             }
         }
-        localStorage.setItem('tasks', JSON.stringify(data));
 
-        //TODO this.getData() is not working, list doesn't refresh
-        this.getData();
+        localStorage.setItem('tasks', JSON.stringify(tempData));
+
+        this.setState({ tableData: tempData });
+    };
+
+    toggleTaskDone = (taskId) => {
+        let tempData = [];
+        tempData = tempData.concat(this.state.tableData);
+
+        for (let i = 0; i < tempData.length; i++) {
+            if (tempData[i].id === taskId) {
+                tempData[i].status = !tempData[i].status;
+            }
+        }
+
+        localStorage.setItem('tasks', JSON.stringify(tempData));
+
+        this.setState({ tableData: tempData });
     };
 
     render() {
@@ -90,6 +110,7 @@ class App extends Component {
                     <TasksList
                         tableData={this.state.tableData}
                         deleteTask={this.deleteTask}
+                        toggleTaskDone={this.toggleTaskDone}
                     />
                 </Paper>
             </MuiThemeProvider>
