@@ -72,6 +72,8 @@ class App extends Component {
             }
         }
         localStorage.setItem('tasks', JSON.stringify(data));
+
+        //TODO this.getData() is not working, list doesn't refresh
         this.getData();
     };
 
