@@ -16,6 +16,7 @@ class TasksList extends React.Component {
                             <TableHeaderColumn>Task Name</TableHeaderColumn>
                             <TableHeaderColumn>Priority</TableHeaderColumn>
                             <TableHeaderColumn>Done</TableHeaderColumn>
+                            <TableHeaderColumn></TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody
@@ -23,7 +24,10 @@ class TasksList extends React.Component {
                         deselectOnClickaway={false}
                         showRowHover={true}
                     >
-                        <SingleTask tableData={this.props.tableData} />
+                        <SingleTask
+                            tableData={this.props.tableData}
+                            deleteTask={this.props.deleteTask}
+                        />
 
                     </TableBody>
                 </Table>

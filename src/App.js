@@ -16,6 +16,7 @@ class App extends Component {
         newTaskName: '',
         newTaskPriority: '',
         doneStatus: false,
+        id: Date.now()
     };
 
     tableData = [];
@@ -34,7 +35,12 @@ class App extends Component {
 
     addTask = () => {
         if (!this.state.newTaskName) {
-            alert('Empty text field!');
+            alert('Empty text field');
+            return
+        }
+
+        if (!this.state.newTaskPriority) {
+            alert('Please add a priority to your task');
             return
         }
 
@@ -42,6 +48,7 @@ class App extends Component {
             name: this.state.newTaskName,
             priority: this.state.newTaskPriority,
             status: this.state.doneStatus,
+            id: this.state.id,
         });
 
         localStorage.setItem('tasks', JSON.stringify(this.tableData));
@@ -49,12 +56,24 @@ class App extends Component {
         this.setState({
             newTaskName: '',
             newTaskPriority: '',
-        })
+        });
     };
 
     handleTextFieldChange = (e, value) => this.setState({newTaskName: value});
 
     handlePriorityChange = (event, index, value) => this.setState({newTaskPriority: value});
+
+    deleteTask = (taskId) => {
+        const data = JSON.parse(localStorage.getItem('tasks'));
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].id === taskId) {
+                data.splice(i, 1);
+            }
+        }
+        localStorage.setItem('tasks', JSON.stringify(data));
+        this.getData();
+    };
 
     render() {
         return (
@@ -67,7 +86,10 @@ class App extends Component {
                         handlePriorityChange={this.handlePriorityChange}
                         handleTextFieldChange={this.handleTextFieldChange}
                     />
-                    <TasksList tableData={this.tableData} />
+                    <TasksList
+                        tableData={this.tableData}
+                        deleteTask={this.deleteTask}
+                    />
                 </Paper>
             </MuiThemeProvider>
         );
