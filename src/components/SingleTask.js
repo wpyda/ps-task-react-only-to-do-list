@@ -15,6 +15,6 @@ const SingleTask = (props) => (
             </TableRowColumn>
         </TableRow>
     ))
-)
+);
 
 export default SingleTask

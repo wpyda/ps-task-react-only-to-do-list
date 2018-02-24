@@ -4,17 +4,6 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'materi
 import SingleTask from "./SingleTask"
 
 class TasksList extends React.Component {
-
-    componentWillMount() {
-        const data = JSON.parse(localStorage.getItem('tasks'));
-
-        if (data !== null) {
-            data.forEach((element) => {
-                this.props.tableData.push(element)
-            });
-        }
-    };
-
     render() {
         return (
             <div>
