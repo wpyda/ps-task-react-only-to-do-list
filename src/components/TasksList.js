@@ -5,44 +5,53 @@ import Table, {
     TableCell,
     TableFooter,
     TableHead,
-    TablePagination,
     TableRow,
-    TableSortLabel,
 } from 'material-ui/Table';
 import DownArrow from "material-ui-icons/ArrowDropDown";
 import UpArrow from "material-ui-icons/ArrowDropUp";
+import Paper from 'material-ui/Paper';
 
 import SingleTask from "./SingleTask";
 import ListPagination from "./ListPagination";
 
 const header = [
-    {name: "Task Name", prop: "taskName"},
-    {name: "Priority", prop: "priority"},
-    {name: "Done", prop: "done"},
+    {name: "Task Name", id: "taskName"},
+    {name: "Priority", id: "priority"},
+    {name: "Done", id: "done"},
 ];
+const styles = {
+
+    paper: {
+        marginTop: 20,
+    },
+
+    tableHead: {
+        backgroundColor: "#60421b",
+        color: "white",
+    },
+};
 
 class TasksList extends React.Component {
     render() {
         return (
-            <div>
+            <Paper elevation={10} style={styles.paper}>
                 <Table>
-                    <TableHead
-
-                    >
+                    <TableHead style={styles.tableHead}>
                         <TableRow>
                             {header.map((el, i) => (
                                 <TableCell key={i}>
                                     <div
                                         style={{
                                             display: 'flex',
-                                            alignItems: 'center'
+                                            alignItems: 'center',
+                                            cursor: 'pointer'
                                         }}
-                                        onClick={() => this.props.handleSort(el.prop)}
+                                        onClick={() => this.props.handleSort(el.id)}
                                     >
 
                                         {el.name}
                                         {
-                                            this.props.columnToSort === el.prop
+                                            this.props.columnToSort === el.id
                                                 ? (this.props.sortDirection === 'asc'
                                                     ? <UpArrow/>
                                                     : <DownArrow/>
@@ -83,7 +92,7 @@ class TasksList extends React.Component {
                         />
                     </TableFooter>
                 </Table>
-            </div>
+            </Paper>
         )
     }
 }

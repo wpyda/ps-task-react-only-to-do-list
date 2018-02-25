@@ -6,19 +6,24 @@ import orderBy from 'lodash/orderBy';
 import AddTask from "./components/AddTask";
 import TasksList from "./components/TasksList";
 
-const style = {
-    margin: 20,
-    padding: 20,
-};
-
 const invertDirection = {
     asc: "desc",
     desc: "asc",
 };
 
+const styles = {
+    container: {
+        margin: 20,
+        padding: 20,
+    },
+
+    headerText: {
+        textAlign: "center",
+    }
+};
+
 class App extends React.Component {
     state = {
-        tasks: null,
         newTaskName: '',
         newTaskPriority: '',
         doneStatus: false,
@@ -112,6 +117,7 @@ class App extends React.Component {
                     ? invertDirection[this.state.sortDirection]
                     : 'asc',
         });
+        console.log('columnName', columnName)
     };
 
     handleChangePage = (event, page) => {
@@ -124,9 +130,9 @@ class App extends React.Component {
 
     render() {
         console.log('col', this.state.columnToSort, 'dir', this.state.sortDirection);
-        console.log('tableData', this.state.tableData);
         return (
-            <Paper elevation={10} style={style}>
+            <div style={styles.container}>
+                <h1 style={styles.headerText}>ToDo App</h1>
                 <AddTask
                     tableData={this.state.tableData}
                     state={this.state}
@@ -150,7 +156,7 @@ class App extends React.Component {
                     handleChangePage={this.handleChangePage}
                     handleChangeRowsPerPage={this.handleChangeRowsPerPage}
                 />
-            </Paper>
+            </div>
         );
     }
 }

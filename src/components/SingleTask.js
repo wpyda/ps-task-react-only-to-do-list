@@ -5,7 +5,7 @@ import Checkbox from 'material-ui/Checkbox';
 import DeleteTask from "./DeleteTask";
 
 const SingleTask = (props) => (
-    <TableRow key={props.id}>
+    <TableRow key={props.id} hover>
         <TableCell>{props.name}</TableCell>
         <TableCell>{props.priority}</TableCell>
 

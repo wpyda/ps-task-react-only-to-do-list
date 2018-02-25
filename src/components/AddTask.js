@@ -2,6 +2,7 @@ import React from 'react'
 
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import Paper from 'material-ui/Paper';
 
 import {InputLabel} from 'material-ui/Input';
 import {MenuItem} from 'material-ui/Menu';
@@ -11,7 +12,7 @@ import Select from 'material-ui/Select';
 
 const AddTask = (props) => (
 
-    <div>
+    <Paper elevation={10}>
         <TextField
             id="newTask"
             label="New Task"
@@ -41,7 +42,7 @@ const AddTask = (props) => (
         >
             Add
         </Button>
-    </div>
+    </Paper>
 
 );
 
