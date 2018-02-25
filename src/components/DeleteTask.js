@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ActionDelete from 'material-ui/svg-icons/action/delete';
+import ActionDelete from 'material-ui-icons/Delete';
 
 const styles = { cursor: "pointer" };
 

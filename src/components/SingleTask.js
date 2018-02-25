@@ -1,27 +1,27 @@
 import React from 'react'
 
-import {TableRow, TableRowColumn} from 'material-ui/Table';
+import { TableCell,TableRow } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import DeleteTask from "./DeleteTask";
 
 const SingleTask = (props) => (
-    <TableRow key={props.key}>
-        <TableRowColumn>{props.name}</TableRowColumn>
-        <TableRowColumn>{props.priority}</TableRowColumn>
+    <TableRow key={props.id}>
+        <TableCell>{props.name}</TableCell>
+        <TableCell>{props.priority}</TableCell>
 
-        <TableRowColumn>
+        <TableCell>
             <Checkbox
-                onClick={() => props.toggleTaskDone(props.key)}
+                onClick={() => props.toggleTaskDone(props.id)}
                 checked={props.status}
             />
-        </TableRowColumn>
+        </TableCell>
 
-        <TableRowColumn>
+        <TableCell>
             <DeleteTask
-                deleteTask={() => props.deleteTask(props.key)}
-                taskId={props.key}
+                deleteTask={() => props.deleteTask(props.id)}
+                taskId={props.id}
             />
-        </TableRowColumn>
+        </TableCell>
     </TableRow>
 );
 

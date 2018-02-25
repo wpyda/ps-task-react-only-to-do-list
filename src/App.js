@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import orderBy from 'lodash/orderBy';
 
@@ -17,7 +16,7 @@ const invertDirection = {
     desc: "asc",
 };
 
-class App extends Component {
+class App extends React.Component {
     state = {
         tasks: null,
         newTaskName: '',
@@ -36,9 +35,7 @@ class App extends Component {
         }
     }
 
-    componentWillMount() {
-        this.getData()
-    };
+    componentWillMount() { this.getData() };
 
     addTask = () => {
         if (!this.state.newTaskName) {
@@ -71,9 +68,9 @@ class App extends Component {
         });
     };
 
-    handleTextFieldChange = (e, value) => this.setState({newTaskName: value});
+    handleTextFieldChange = (e) => this.setState({newTaskName: e.target.value});
 
-    handlePriorityChange = (event, index, value) => this.setState({newTaskPriority: value});
+    handlePriorityChange = (e) => this.setState({newTaskPriority: e.target.value});
 
     deleteTask = (taskId) => {
         let tempData = [];
@@ -119,29 +116,27 @@ class App extends Component {
         console.log('col', this.state.columnToSort, 'dir', this.state.sortDirection);
         console.log('tableData', this.state.tableData);
         return (
-            <MuiThemeProvider>
-                <Paper zDepth={1} rounded={false} style={style}>
-                    <AddTask
-                        tableData={this.state.tableData}
-                        state={this.state}
-                        addTask={this.addTask}
-                        handlePriorityChange={this.handlePriorityChange}
-                        handleTextFieldChange={this.handleTextFieldChange}
-                    />
-                    <TasksList
-                        tableData={orderBy(
-                            this.state.tableData,
-                            this.state.columnToSort,
-                            this.state.sortDirection
-                        )}
-                        deleteTask={this.deleteTask}
-                        toggleTaskDone={this.toggleTaskDone}
-                        handleSort={this.handleSort}
-                        columnToSort={this.state.columnToSort}
-                        sortDirection={this.state.sortDirection}
-                    />
-                </Paper>
-            </MuiThemeProvider>
+            <Paper elevation={10} style={style}>
+                <AddTask
+                    tableData={this.state.tableData}
+                    state={this.state}
+                    addTask={this.addTask}
+                    handlePriorityChange={this.handlePriorityChange}
+                    handleTextFieldChange={this.handleTextFieldChange}
+                />
+                <TasksList
+                    tableData={orderBy(
+                        this.state.tableData,
+                        this.state.columnToSort,
+                        this.state.sortDirection
+                    )}
+                    deleteTask={this.deleteTask}
+                    toggleTaskDone={this.toggleTaskDone}
+                    handleSort={this.handleSort}
+                    columnToSort={this.state.columnToSort}
+                    sortDirection={this.state.sortDirection}
+                />
+            </Paper>
         );
     }
 }
