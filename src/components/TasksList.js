@@ -9,9 +9,11 @@ import Table, {
     TableRow,
     TableSortLabel,
 } from 'material-ui/Table';
-import SingleTask from "./SingleTask";
 import DownArrow from "material-ui-icons/ArrowDropDown";
 import UpArrow from "material-ui-icons/ArrowDropUp";
+
+import SingleTask from "./SingleTask";
+import ListPagination from "./ListPagination";
 
 const header = [
     {name: "Task Name", prop: "taskName"},
@@ -53,13 +55,12 @@ class TasksList extends React.Component {
                             <TableCell/>
                         </TableRow>
                     </TableHead>
-                    <TableBody
-
-                    >
+                    <TableBody>
                         {
                             this.props.tableData
                             &&
-                            this.props.tableData.map((element, index) => (
+                            this.props.tableData.slice(this.props.page * this.props.rowsPerPage,
+                                this.props.page * this.props.rowsPerPage + this.props.rowsPerPage).map((element, index) => (
                                 <SingleTask
                                     id={element.id}
                                     key={element.id}
@@ -73,7 +74,13 @@ class TasksList extends React.Component {
                         }
                     </TableBody>
                     <TableFooter>
-
+                        <ListPagination
+                            tableData={this.props.tableData}
+                            rowsPerPage={this.props.rowsPerPage}
+                            page={this.props.page}
+                            handleChangePage={this.props.handleChangePage}
+                            handleChangeRowsPerPage={this.props.handleChangeRowsPerPage}
+                        />
                     </TableFooter>
                 </Table>
             </div>

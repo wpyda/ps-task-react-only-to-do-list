@@ -26,6 +26,8 @@ class App extends React.Component {
         tableData: [],
         columnToSort: '',
         sortDirection: 'desc',
+        rowsPerPage: 5,
+        page: 0,
     };
 
     getData() {
@@ -112,6 +114,14 @@ class App extends React.Component {
         });
     };
 
+    handleChangePage = (event, page) => {
+        this.setState({ page });
+    };
+
+    handleChangeRowsPerPage = event => {
+        this.setState({ rowsPerPage: event.target.value });
+    };
+
     render() {
         console.log('col', this.state.columnToSort, 'dir', this.state.sortDirection);
         console.log('tableData', this.state.tableData);
@@ -135,6 +145,10 @@ class App extends React.Component {
                     handleSort={this.handleSort}
                     columnToSort={this.state.columnToSort}
                     sortDirection={this.state.sortDirection}
+                    rowsPerPage={this.state.rowsPerPage}
+                    page={this.state.page}
+                    handleChangePage={this.handleChangePage}
+                    handleChangeRowsPerPage={this.handleChangeRowsPerPage}
                 />
             </Paper>
         );
