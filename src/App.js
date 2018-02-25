@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
 
-import TasksList from "./components/TasksList";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
+import orderBy from 'lodash/orderBy';
+
 import AddTask from "./components/AddTask";
+import TasksList from "./components/TasksList";
 
 const style = {
     margin: 20,
     padding: 20,
+};
+
+const invertDirection = {
+    asc: "desc",
+    desc: "asc",
 };
 
 class App extends Component {
@@ -18,6 +25,8 @@ class App extends Component {
         doneStatus: false,
         id: '',
         tableData: [],
+        columnToSort: '',
+        sortDirection: 'desc',
     };
 
     getData() {
@@ -78,7 +87,7 @@ class App extends Component {
 
         localStorage.setItem('tasks', JSON.stringify(tempData));
 
-        this.setState({ tableData: tempData });
+        this.setState({tableData: tempData});
     };
 
     toggleTaskDone = (taskId) => {
@@ -93,10 +102,22 @@ class App extends Component {
 
         localStorage.setItem('tasks', JSON.stringify(tempData));
 
-        this.setState({ tableData: tempData });
+        this.setState({tableData: tempData});
+    };
+
+    handleSort = (columnName) => {
+        this.setState({
+            columnToSort: columnName,
+            sortDirection:
+                this.state.columnToSort === columnName
+                    ? invertDirection[this.state.sortDirection]
+                    : 'asc',
+        });
     };
 
     render() {
+        console.log('col', this.state.columnToSort, 'dir', this.state.sortDirection);
+        console.log('tableData', this.state.tableData);
         return (
             <MuiThemeProvider>
                 <Paper zDepth={1} rounded={false} style={style}>
@@ -108,9 +129,16 @@ class App extends Component {
                         handleTextFieldChange={this.handleTextFieldChange}
                     />
                     <TasksList
-                        tableData={this.state.tableData}
+                        tableData={orderBy(
+                            this.state.tableData,
+                            this.state.columnToSort,
+                            this.state.sortDirection
+                        )}
                         deleteTask={this.deleteTask}
                         toggleTaskDone={this.toggleTaskDone}
+                        handleSort={this.handleSort}
+                        columnToSort={this.state.columnToSort}
+                        sortDirection={this.state.sortDirection}
                     />
                 </Paper>
             </MuiThemeProvider>

@@ -2,11 +2,13 @@ import React from 'react'
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
 import SingleTask from "./SingleTask";
+import DownArrow from "material-ui/svg-icons/navigation/arrow-drop-down";
+import UpArrow from "material-ui/svg-icons/navigation/arrow-drop-up";
 
 const header = [
-    {name: "Task Name"},
-    {name: "Priority"},
-    {name: "Done"},
+    {name: "Task Name", prop: "taskName"},
+    {name: "Priority", prop: "priority"},
+    {name: "Done", prop: "done"},
 ];
 
 class TasksList extends React.Component {
@@ -20,7 +22,26 @@ class TasksList extends React.Component {
                     >
                         <TableRow>
                             {header.map((el, i) => (
-                                <TableHeaderColumn key={i}>{el.name}</TableHeaderColumn>
+                                <TableHeaderColumn key={i}>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center'
+                                        }}
+                                        onClick={() => this.props.handleSort(el.prop)}
+                                    >
+
+                                        {el.name}
+                                        {
+                                            this.props.columnToSort === el.prop
+                                                ? (this.props.sortDirection === 'asc'
+                                                    ? <UpArrow/>
+                                                    : <DownArrow/>
+                                                )
+                                                : null
+                                        }
+                                    </div>
+                                </TableHeaderColumn>
                             ))}
                             <TableHeaderColumn/>
                         </TableRow>
