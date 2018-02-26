@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import Table, {
     TableBody,
@@ -24,8 +24,12 @@ const styles = {
     },
 
     tableHead: {
-        backgroundColor: '#827717',
-        color: "white",
+        backgroundColor: '#5d5216',
+    },
+
+    tableCell: {
+        color: "#FFFFFF",
+        fontWeight: "700",
     },
 };
 
@@ -37,7 +41,12 @@ class TasksList extends React.Component {
                     <TableHead style={styles.tableHead}>
                         <TableRow>
                             {header.map((el, i) => (
-                                <TableCell key={i}>
+                                <TableCell
+                                    // onClick={this.props.handleSort(el.id)}
+                                    // id={el.id}
+                                    key={i}
+                                    style={styles.tableCell}
+                                >
                                     {el.name}
                                 </TableCell>
                             ))}

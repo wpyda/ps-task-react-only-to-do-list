@@ -23,6 +23,7 @@ class App extends React.Component {
         tableData: [],
         rowsPerPage: 5,
         page: 0,
+        users: this.tableData,
     };
 
     getData() {
@@ -32,9 +33,7 @@ class App extends React.Component {
         }
     }
 
-    componentWillMount() {
-        this.getData()
-    };
+    componentWillMount() { this.getData() };
 
     addTask = () => {
         if (!this.state.newTaskName) {
@@ -105,6 +104,16 @@ class App extends React.Component {
 
     handleChangeRowsPerPage = event => { this.setState({rowsPerPage: event.target.value}) };
 
+    // TODO: check why handleSort causes infiniy loop - it should work on single click
+    // handleSort = (id) => {
+    //     this.setState(prev => {
+    //         return {
+    //             [id]: !prev[id],
+    //             users: prev.tableData.sort((a, b) => prev[id] ? a[id] < b[id] : a[id] > b[id] )
+    //         }
+    //     });
+    // };
+
     render() {
         return (
             <div style={styles.container}>
@@ -124,6 +133,7 @@ class App extends React.Component {
                     page={this.state.page}
                     handleChangePage={this.handleChangePage}
                     handleChangeRowsPerPage={this.handleChangeRowsPerPage}
+                    // handleSort={this.handleSort}
                 />
             </div>
         );

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -9,6 +9,10 @@ import {MenuItem} from 'material-ui/Menu';
 import {FormControl} from 'material-ui/Form';
 import Select from 'material-ui/Select';
 
+const styles = {
+    backgroundColor: '#5d5216',
+    fontWeight: "700",
+};
 
 const AddTask = (props) => (
 
@@ -39,6 +43,7 @@ const AddTask = (props) => (
             color="primary"
             fullWidth={true}
             onClick={props.addTask}
+            style={styles}
         >
             Add
         </Button>
