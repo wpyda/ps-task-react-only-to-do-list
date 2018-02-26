@@ -13,6 +13,7 @@ const SingleTask = (props) => (
             <Checkbox
                 onClick={() => props.toggleTaskDone(props.id)}
                 checked={props.status}
+                style={{color: '#ffae35'}}
             />
         </TableCell>
 
