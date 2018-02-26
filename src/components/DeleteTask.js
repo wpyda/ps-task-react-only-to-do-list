@@ -11,4 +11,4 @@ const DeleteTask = (props) => (
     />
 );
 
-export default DeleteTask
+export default DeleteTask;

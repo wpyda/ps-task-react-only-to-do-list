@@ -15,7 +15,6 @@ const styles = {
 };
 
 const AddTask = (props) => (
-
     <Paper elevation={10}>
         <TextField
             id="newTask"
@@ -48,7 +47,6 @@ const AddTask = (props) => (
             Add
         </Button>
     </Paper>
-
 );
 
-export default AddTask
+export default AddTask;

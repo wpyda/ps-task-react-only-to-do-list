@@ -24,6 +24,7 @@ class App extends React.Component {
         rowsPerPage: 5,
         page: 0,
         users: this.tableData,
+        isSorted: true,
     };
 
     getData() {
@@ -33,7 +34,7 @@ class App extends React.Component {
         }
     }
 
-    componentWillMount() { this.getData() };
+    componentWillMount() {this.getData()};
 
     addTask = () => {
         if (!this.state.newTaskName) {
@@ -105,17 +106,42 @@ class App extends React.Component {
     handleChangeRowsPerPage = event => { this.setState({rowsPerPage: event.target.value}) };
 
     handleSort = (id) => {
-        this.setState(prev => {
-            return {
-                [id]: !prev[id],
-                users: prev.tableData.sort((a, b) => prev[id] ? a[id] < b[id] : a[id] > b[id] )
-            }
-        });
+        let tempData = [];
+        let sortData = [];
+        tempData = tempData.concat(this.state.tableData);
+
+        if (id === 'name') {
+            this.state.isSorted
+                ? sortData = tempData.sort((a, b) => a.name.localeCompare(b.name))
+                : sortData = tempData.sort((a, b) => b.name.localeCompare(a.name));
+            this.setState({isSorted: !this.state.isSorted})
+        }
+
+        if (id === 'priority') {
+            this.state.isSorted
+                ? sortData = tempData.sort((a, b) => a.priority.localeCompare(b.priority))
+                : sortData = tempData.sort((a, b) => b.priority.localeCompare(a.priority));
+            this.setState({isSorted: !this.state.isSorted})
+        }
+        if (id === 'status') {
+
+            this.state.isSorted
+                ? sortData = tempData.sort((a, b) => b.status - a.status)
+                : sortData = tempData.sort((a, b) => a.status - b.status);
+            this.setState({isSorted: !this.state.isSorted})
+        }
+        if (id === 'default') {
+            sortData = tempData.sort((a, b) => {
+                return a.id - b.id
+            })
+        }
+        this.setState({tableData: sortData});
     };
 
     render() {
         return (
             <div style={styles.container}>
+
                 <h1 style={styles.headerText}>ToDo App</h1>
                 <AddTask
                     tableData={this.state.tableData}

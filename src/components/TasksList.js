@@ -13,9 +13,9 @@ import SingleTask from "./SingleTask";
 import ListPagination from "./ListPagination";
 
 const header = [
-    {name: "Task Name", id: "taskName"},
+    {name: "Task Name", id: "name"},
     {name: "Priority", id: "priority"},
-    {name: "Done", id: "done"},
+    {name: "Done", id: "status"},
 ];
 const styles = {
 
@@ -30,6 +30,7 @@ const styles = {
     tableCell: {
         color: "#FFFFFF",
         fontWeight: "700",
+        cursor: 'pointer',
     },
 };
 
