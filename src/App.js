@@ -1,15 +1,7 @@
 import React from 'react';
 
-import Paper from 'material-ui/Paper';
-import orderBy from 'lodash/orderBy';
-
 import AddTask from "./components/AddTask";
 import TasksList from "./components/TasksList";
-
-const invertDirection = {
-    asc: "desc",
-    desc: "asc",
-};
 
 const styles = {
     container: {
@@ -29,8 +21,6 @@ class App extends React.Component {
         doneStatus: false,
         id: '',
         tableData: [],
-        columnToSort: '',
-        sortDirection: 'desc',
         rowsPerPage: 5,
         page: 0,
     };
@@ -42,7 +32,9 @@ class App extends React.Component {
         }
     }
 
-    componentWillMount() { this.getData() };
+    componentWillMount() {
+        this.getData()
+    };
 
     addTask = () => {
         if (!this.state.newTaskName) {
@@ -109,27 +101,11 @@ class App extends React.Component {
         this.setState({tableData: tempData});
     };
 
-    handleSort = (columnName) => {
-        this.setState({
-            columnToSort: columnName,
-            sortDirection:
-                this.state.columnToSort === columnName
-                    ? invertDirection[this.state.sortDirection]
-                    : 'asc',
-        });
-        console.log('columnName', columnName)
-    };
+    handleChangePage = (event, page) => { this.setState({page}) };
 
-    handleChangePage = (event, page) => {
-        this.setState({ page });
-    };
-
-    handleChangeRowsPerPage = event => {
-        this.setState({ rowsPerPage: event.target.value });
-    };
+    handleChangeRowsPerPage = event => { this.setState({rowsPerPage: event.target.value}) };
 
     render() {
-        console.log('col', this.state.columnToSort, 'dir', this.state.sortDirection);
         return (
             <div style={styles.container}>
                 <h1 style={styles.headerText}>ToDo App</h1>
@@ -141,16 +117,9 @@ class App extends React.Component {
                     handleTextFieldChange={this.handleTextFieldChange}
                 />
                 <TasksList
-                    tableData={orderBy(
-                        this.state.tableData,
-                        this.state.columnToSort,
-                        this.state.sortDirection
-                    )}
+                    tableData={this.state.tableData}
                     deleteTask={this.deleteTask}
                     toggleTaskDone={this.toggleTaskDone}
-                    handleSort={this.handleSort}
-                    columnToSort={this.state.columnToSort}
-                    sortDirection={this.state.sortDirection}
                     rowsPerPage={this.state.rowsPerPage}
                     page={this.state.page}
                     handleChangePage={this.handleChangePage}

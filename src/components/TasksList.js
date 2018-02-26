@@ -7,8 +7,6 @@ import Table, {
     TableHead,
     TableRow,
 } from 'material-ui/Table';
-import DownArrow from "material-ui-icons/ArrowDropDown";
-import UpArrow from "material-ui-icons/ArrowDropUp";
 import Paper from 'material-ui/Paper';
 
 import SingleTask from "./SingleTask";
@@ -40,25 +38,7 @@ class TasksList extends React.Component {
                         <TableRow>
                             {header.map((el, i) => (
                                 <TableCell key={i}>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            cursor: 'pointer'
-                                        }}
-                                        onClick={() => this.props.handleSort(el.id)}
-                                    >
-
-                                        {el.name}
-                                        {
-                                            this.props.columnToSort === el.id
-                                                ? (this.props.sortDirection === 'asc'
-                                                    ? <UpArrow/>
-                                                    : <DownArrow/>
-                                                )
-                                                : null
-                                        }
-                                    </div>
+                                    {el.name}
                                 </TableCell>
                             ))}
                             <TableCell/>
