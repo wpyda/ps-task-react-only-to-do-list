@@ -104,15 +104,14 @@ class App extends React.Component {
 
     handleChangeRowsPerPage = event => { this.setState({rowsPerPage: event.target.value}) };
 
-    // TODO: check why handleSort causes infiniy loop - it should work on single click
-    // handleSort = (id) => {
-    //     this.setState(prev => {
-    //         return {
-    //             [id]: !prev[id],
-    //             users: prev.tableData.sort((a, b) => prev[id] ? a[id] < b[id] : a[id] > b[id] )
-    //         }
-    //     });
-    // };
+    handleSort = (id) => {
+        this.setState(prev => {
+            return {
+                [id]: !prev[id],
+                users: prev.tableData.sort((a, b) => prev[id] ? a[id] < b[id] : a[id] > b[id] )
+            }
+        });
+    };
 
     render() {
         return (
@@ -133,7 +132,7 @@ class App extends React.Component {
                     page={this.state.page}
                     handleChangePage={this.handleChangePage}
                     handleChangeRowsPerPage={this.handleChangeRowsPerPage}
-                    // handleSort={this.handleSort}
+                    handleSort={this.handleSort}
                 />
             </div>
         );

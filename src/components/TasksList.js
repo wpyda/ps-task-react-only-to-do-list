@@ -42,8 +42,8 @@ class TasksList extends React.Component {
                         <TableRow>
                             {header.map((el, i) => (
                                 <TableCell
-                                    // onClick={this.props.handleSort(el.id)}
-                                    // id={el.id}
+                                    onClick={() => this.props.handleSort(el.id)}
+                                    id={el.id}
                                     key={i}
                                     style={styles.tableCell}
                                 >
