@@ -26,7 +26,7 @@ const styles = {
     },
 
     tableHead: {
-        backgroundColor: "#60421b",
+        backgroundColor: '#827717',
         color: "white",
     },
 };
